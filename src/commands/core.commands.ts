@@ -27,6 +27,10 @@ export default {
             interaction.client.mysql.query(
                 `SELECT cheese FROM cheese WHERE discordID = "${interaction.user.id}"`,
                 async (err, result) => {
+                    if (err) {
+                        console.error(err);
+                        return;
+                    }
                     if (result.length < 1) cheese = 0;
                     else cheese = result[0].cheese;
 
@@ -56,6 +60,10 @@ export default {
         interaction.client.mysql.query(
             `SELECT cheese FROM cheese WHERE discordID = "${interaction.user.id}"`,
             async (err, result) => {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
                 let existingCheese = 0;
                 if (result.length < 1) {
                     interaction.client.mysql.query(
@@ -69,6 +77,10 @@ export default {
                         existingCheese + input_cheese
                     } WHERE discordID = "${interaction.user.id}"`,
                     async (err, result) => {
+                        if (err) {
+                            console.error(err);
+                            return;
+                        }
                         if (result.affectedRows !== 1) {
                             console.warn("MORE THAN 1 ROW UPDATED");
                             return;
