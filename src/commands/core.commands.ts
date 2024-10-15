@@ -1,4 +1,8 @@
-import { ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
+import {
+    ChatInputCommandInteraction,
+    GuildMemberRoleManager,
+    SlashCommandBuilder,
+} from "discord.js";
 
 export default {
     data: new SlashCommandBuilder()
@@ -41,6 +45,20 @@ export default {
                 }
             );
             return;
+        } else {
+            let cache = (interaction.member?.roles as GuildMemberRoleManager)
+                .cache;
+            if (
+                !cache.has("1174098637467430953") && //people team
+                !cache.has("1229561280176590938") && //alliance officer
+                !cache.has("1229575764819705876") //FC
+            ) {
+                //user does not have
+                interaction.reply(
+                    "You don't have permission for that!\nRat Exodus 20:15 - 'Thou shalt not steal cheese, for it is a sacred treasure.'"
+                );
+                return;
+            }
         }
 
         let input_cheese = 0,
