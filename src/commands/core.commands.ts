@@ -62,12 +62,12 @@ export default {
         }
 
         let input_cheese = 0,
-            input_target;
+            input_target = "";
 
         for (let option of interaction.options.data) {
             switch (option.name) {
                 case "person":
-                    input_target = option.value;
+                    input_target = option.value as string;
                     break;
                 case "cheese":
                     input_cheese = parseInt((option.value as string) ?? "0");
@@ -75,8 +75,12 @@ export default {
             }
         }
 
+        let target = interaction.guild?.members.cache.get(input_target);
+
+        if (!target) return;
+
         interaction.client.mysql.query(
-            `SELECT cheese FROM cheese WHERE discordID = "${interaction.user.id}"`,
+            `SELECT cheese FROM cheese WHERE discordID = "${target.id}"`,
             async (err, result) => {
                 if (err) {
                     console.error(err);
@@ -85,7 +89,7 @@ export default {
                 let existingCheese = 0;
                 if (result.length < 1) {
                     interaction.client.mysql.query(
-                        `INSERT INTO cheese VALUES ("${interaction.user.id}", 0)`
+                        `INSERT INTO cheese VALUES ("${target?.id}", 0)`
                     );
                     existingCheese = 0;
                 } else existingCheese = result[0].cheese;
@@ -93,7 +97,7 @@ export default {
                 interaction.client.mysql.query(
                     `UPDATE cheese SET cheese = ${
                         existingCheese + input_cheese
-                    } WHERE discordID = "${interaction.user.id}"`,
+                    } WHERE discordID = "${target.id}"`,
                     async (err, result) => {
                         if (err) {
                             console.error(err);
@@ -106,7 +110,7 @@ export default {
 
                         await interaction.reply({
                             content: `${
-                                interaction.user.displayName
+                                target.displayName
                             } was given ${input_cheese} cheese, they now have ${
                                 existingCheese + input_cheese
                             }`,
