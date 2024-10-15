@@ -19,6 +19,11 @@
     "dependencies": {
         "discord.js": "^14.16.3",
         "dotenv": "^16.4.5",
+        "mysql": "^2.18.1",
         "tsconfig-paths": "^4.2.0"
+    },
+    "devDependencies": {
+        "@types/mysql": "^2.15.26",
+        "@types/typescript": "^2.0.0"
     }
 }

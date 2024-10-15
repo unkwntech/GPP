@@ -7,6 +7,7 @@ import {
     Routes,
 } from "discord.js";
 import fs from "fs";
+import mysql from "mysql";
 import path from "path";
 require("dotenv").config();
 
@@ -17,7 +18,7 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 client.commands = new Collection();
 
 client.once(Events.ClientReady, (readyClient) => {
-    console.log("CLIENT LOGGED IN");
+    console.info("CLIENT LOGGED IN");
 });
 
 client.on(Events.InteractionCreate, async (interaction) => {
@@ -26,6 +27,13 @@ client.on(Events.InteractionCreate, async (interaction) => {
     if (!command) return;
 
     await command.execute(interaction);
+});
+
+client.mysql = mysql.createConnection({
+    host: "localhost",
+    user: "cheesus",
+    password: "password1",
+    database: "cheesus",
 });
 
 //Load commands
