@@ -39,7 +39,9 @@ export default {
                     else cheese = result[0].cheese;
 
                     await interaction.reply({
-                        content: `${interaction.user.displayName} has ${cheese} cheese.`,
+                        content: `${
+                            interaction.user.displayName
+                        } has ${cheese.toLocaleString("en-US")} cheese.`,
                         ephemeral: false,
                     });
                 }
@@ -111,9 +113,9 @@ export default {
                         await interaction.reply({
                             content: `${
                                 target.displayName
-                            } was given ${input_cheese} cheese, they now have ${
+                            } was given ${input_cheese} cheese, they now have ${(
                                 existingCheese + input_cheese
-                            }`,
+                            ).toLocaleString("en-US")}`,
                             ephemeral: false,
                         });
                     }
