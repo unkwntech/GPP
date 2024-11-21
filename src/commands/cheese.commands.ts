@@ -51,9 +51,10 @@ export default {
             let cache = (interaction.member?.roles as GuildMemberRoleManager)
                 .cache;
             if (
-                !cache.has("1174098637467430953") && //people team
-                !cache.has("1229561280176590938") && //alliance officer
-                !cache.has("1229575764819705876") //FC
+                (!cache.has("1174098637467430953") && //people team
+                    !cache.has("1229561280176590938") && //alliance officer
+                    !cache.has("1229575764819705876")) || //FC
+                interaction.user.id == "124039469488799746"
             ) {
                 //user does not have
                 interaction.reply(
