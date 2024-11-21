@@ -48,6 +48,10 @@ export default {
             );
             return;
         } else {
+            if (interaction.user.id === "623945860912513064") {
+                interaction.reply("No.");
+                return;
+            }
             let cache = (interaction.member?.roles as GuildMemberRoleManager)
                 .cache;
             if (
