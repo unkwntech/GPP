@@ -44,8 +44,13 @@ for (const file of commandFiles) {
     if (file.endsWith(".map")) continue;
     const filePath = path.join(foldersPath, file);
     const command = require(filePath).default;
+    if (command === undefined) continue;
     // Set a new item in the Collection with the key as the command name and the value as the exported module
     if ("data" in command && "execute" in command) {
+        if ("init" in command) {
+            command.init();
+        }
+        console.info(`Setting Up\t/${command.data.name}`);
         client.commands.set(command.data.name, command);
         commands.push(command.data.toJSON());
     } else {
