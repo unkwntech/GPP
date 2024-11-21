@@ -13,6 +13,7 @@ export default {
             .then((res) => res.data)
             .then((data) => {
                 interaction.reply(data.results[0].media_formats.gif.url);
-            });
+            })
+            .catch(console.error);
     },
 };
