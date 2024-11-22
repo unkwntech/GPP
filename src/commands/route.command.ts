@@ -45,13 +45,13 @@ export default {
                             i - 1
                         ].region_name.replaceAll(" ", "_")}/${
                             data.route[i - 1].system_name
-                        }), you will exit too [${
+                        }) , you will exit too [${
                             data.route[i + 1].system_name
                         }](https://evemaps.dotlan.net/map/${data.route[
                             i + 1
                         ].region_name.replaceAll(" ", "_")}/${
                             data.route[i + 1].system_name
-                        }).`;
+                        }) .`;
                         break;
                     }
                     if (system.system_name === "Turnur") {
@@ -62,7 +62,7 @@ export default {
                             i + 1
                         ].region_name.replaceAll(" ", "_")}/${
                             data.route[i + 1].system_name
-                        }).`;
+                        }) .`;
                         break;
                     }
                     i++;
