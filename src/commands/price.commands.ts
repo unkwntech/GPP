@@ -51,10 +51,8 @@ export default {
                 }** @ **Jita**\n**Buy Orders**: ${parseFloat(
                     res[TYPEID_CACHE[itemName].id].buy.max
                 ).toLocaleString("en-US")}\n**Sell Orders:** ${parseFloat(
-                    res[TYPEID_CACHE[itemName].id].sell.min.toLocaleString(
-                        "en-US"
-                    )
-                )}`;
+                    res[TYPEID_CACHE[itemName].id].sell.min
+                ).toLocaleString("en-US")}`;
 
                 interaction.reply(messsage);
             });
