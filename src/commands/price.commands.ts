@@ -5,11 +5,11 @@ const TYPEID_CACHE: { [key: string]: { id: number; display: string } } = {};
 
 export default {
     data: new SlashCommandBuilder()
-        .setName("price")
+        .setName("pricecheck")
         .setDescription("Get the current Jita price for an Item")
         .addStringOption((option) =>
             option
-                .setName("itemName")
+                .setName("itemname")
                 .setDescription("Name of Item")
                 .setRequired(true)
         ),
@@ -17,7 +17,7 @@ export default {
         let itemName = "";
         for (let option of interaction.options.data) {
             switch (option.name) {
-                case "itemName":
+                case "itemname":
                     itemName = option.value as string;
                     break;
             }
@@ -25,7 +25,9 @@ export default {
         let typeID: number = -1;
         if (!TYPEID_CACHE[itemName]) {
             await axios
-                .get(``)
+                .get(
+                    `https://www.fuzzwork.co.uk/api/typeid.php?typename=${itemName}`
+                )
                 .then((res) => JSON.parse(res.data))
                 .then((res) => {
                     typeID = res.typeID;
