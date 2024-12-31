@@ -18,12 +18,12 @@ export default {
         for (let option of interaction.options.data) {
             switch (option.name) {
                 case "itemname":
-                    itemName = option.value as string;
+                    itemName = (option.value as string).toLocaleLowerCase();
                     break;
             }
         }
         let typeID: number = -1;
-        if (!TYPEID_CACHE[itemName]) {
+        if (TYPEID_CACHE[itemName] === undefined) {
             await axios
                 .get(
                     `https://www.fuzzwork.co.uk/api/typeid.php?typename=${itemName.replaceAll(
@@ -34,7 +34,7 @@ export default {
                 .then((res) => res.data)
                 .then((res) => {
                     typeID = res.typeID;
-                    TYPEID_CACHE[itemName.toLocaleLowerCase()] = {
+                    TYPEID_CACHE[itemName] = {
                         id: typeID,
                         display: res.typeName,
                     };
