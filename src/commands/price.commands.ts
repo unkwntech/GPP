@@ -26,7 +26,10 @@ export default {
         if (!TYPEID_CACHE[itemName]) {
             await axios
                 .get(
-                    `https://www.fuzzwork.co.uk/api/typeid.php?typename=${itemName}`
+                    `https://www.fuzzwork.co.uk/api/typeid.php?typename=${itemName.replaceAll(
+                        " ",
+                        "%20"
+                    )}`
                 )
                 .then((res) => res.data)
                 .then((res) => {
