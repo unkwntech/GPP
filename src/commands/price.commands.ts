@@ -48,9 +48,11 @@ export default {
             .then((res) => {
                 let messsage = `**${
                     TYPEID_CACHE[itemName].display
-                }** @ **Jita**\n**Buy Orders**: ${
-                    res[TYPEID_CACHE[itemName].id].buy.max
-                }\n**Sell Orders**${res[TYPEID_CACHE[itemName].id].sell.min}`;
+                }** @ **Jita**\n**Buy Orders**: ${res[
+                    TYPEID_CACHE[itemName].id
+                ].buy.max.toLocaleString("en-US")}\n**Sell Orders**${res[
+                    TYPEID_CACHE[itemName].id
+                ].sell.min.toLocaleString("en-US")}`;
 
                 interaction.reply(messsage);
             });
