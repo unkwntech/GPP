@@ -4,5 +4,6 @@ namespace NodeJS {
         DISCORD_SECRET: string;
         DISCORD_CLIENT_ID: string;
         TENOR_API_KEY: string;
+        ROUTES_ALL: string;
     }
 }
