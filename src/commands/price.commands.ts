@@ -28,7 +28,7 @@ export default {
                 .get(
                     `https://www.fuzzwork.co.uk/api/typeid.php?typename=${itemName}`
                 )
-                .then((res) => JSON.parse(res.data))
+                .then((res) => res.data)
                 .then((res) => {
                     typeID = res.typeID;
                     TYPEID_CACHE[itemName.toLocaleLowerCase()] = {
@@ -44,7 +44,7 @@ export default {
             .get(
                 `https://market.fuzzwork.co.uk/aggregates/?station=60003760&types=${typeID}`
             )
-            .then((res) => JSON.parse(res.data))
+            .then((res) => res.data)
             .then((res) => {
                 let messsage = `**${
                     TYPEID_CACHE[itemName].display
