@@ -69,7 +69,7 @@ export default {
                                 i + 1
                             ].region_name.replaceAll(" ", "_")}/${
                                 data.route[i + 1].system_name
-                            }) .\n`;
+                            }) .`;
                             break;
                         }
                         i++;
@@ -78,6 +78,8 @@ export default {
                     if (!shortcut) {
                         output += "There is no shortcut.";
                     }
+
+                    output += `\n`;
                 }
 
                 interaction.reply(output);
