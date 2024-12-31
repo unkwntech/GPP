@@ -43,6 +43,14 @@ export default {
             typeID = TYPEID_CACHE[itemName].id;
         }
 
+        if (typeID === 0) {
+            interaction.reply({
+                content: "Unable to locate item, confirm spelling.",
+                ephemeral: true,
+            });
+            return;
+        }
+
         axios
             .get(
                 `https://market.fuzzwork.co.uk/aggregates/?station=60003760&types=${typeID}`
