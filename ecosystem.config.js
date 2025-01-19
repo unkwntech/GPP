@@ -18,7 +18,7 @@ module.exports = {
             host: "ibns.tech",
             key: "deploy.key",
             ref: "origin/main",
-            repo: "git@github.com:unkwntech/GPP",
+            repo: "git@github.com:unkwntech/GPP.git",
             path: "/var/projects/cheesus-backend-prod/",
             "post-deploy":
                 "npm i && tsc -b && pm2 reload ecosystem.config.js --env production && pm2 save",
