@@ -22,10 +22,6 @@ jobs:
               env:
                   SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
                   SSH_KNOWN_HOSTS: ${{secrets.SSH_KNOWN_HOSTS}}
-            - name: Build
-              run: |
-                  npm i
-                  npm run build
             - name: Create env file
               run: |
                   cp sample.env .env
