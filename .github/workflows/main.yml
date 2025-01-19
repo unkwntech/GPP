@@ -1,0 +1,54 @@
+name: CI - Master
+
+on:
+    push:
+        branches: [main]
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v3
+            #   - name: Run Tests
+            #     run: |
+            - name: Set up SSH
+              run: |
+                  mkdir -p ~/.ssh/
+                  echo "$SSH_PRIVATE_KEY" > ./deploy.key
+                  chmod 600 ./deploy.key
+                  echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+              shell: bash
+              env:
+                  SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
+                  SSH_KNOWN_HOSTS: ${{secrets.SSH_KNOWN_HOSTS}}
+            - name: Build
+              run: |
+                  npm i
+                  npm run build
+            - name: Create env file
+              run: |
+                  cp sample.env .env
+                  sed -i -e "s/\%DISCORD_TOKEN/$DISCORD_TOKEN/g" .env
+                  sed -i -e "s/\%DISCORD_CLIENT_ID/$DISCORD_CLIENT_ID/g" .env
+                  sed -i -e "s/\%DISCORD_GUILD_ID/$DISCORD_GUILD_ID/g" .env
+                  sed -i -e "s/\%TENOR_API_KEY/$TENOR_API_KEY/g" .env
+              env:
+                  DISCORD_TOKEN: ${{secrets.DISCORD_TOKEN}}
+                  ESI_CLIDISCORD_CLIENT_IDENT: ${{secrets.DISCORD_CLIENT_ID}}
+                  DISCORD_GUILD_ID: ${{secrets.DISCORD_GUILD_ID}}
+                  TENOR_API_KEY: ${{secrets.TENOR_API_KEY}}
+            - name: Install PM2
+              run: |
+                  npm i pm2
+
+            - name: Deploy
+              run: |
+                  git stash
+                  scp -i deploy.key -r .env github@$DEPLOY_TARGET"source/"
+                  ./node_modules/pm2/bin/pm2 deploy ecosystem.config.js production
+              env:
+                  DEPLOY_TARGET: ${{secrets.DEPLOY_TARGET}}
+
+              # Or alternately, put this deploy script in your package.json's scripts and run it using yarn/npm:
+              # run: yarn deploy
