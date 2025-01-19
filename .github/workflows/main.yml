@@ -31,7 +31,7 @@ jobs:
                   sed -i -e "s/\%TENOR_API_KEY/$TENOR_API_KEY/g" .env
               env:
                   DISCORD_TOKEN: ${{secrets.DISCORD_TOKEN}}
-                  ESI_CLIDISCORD_CLIENT_IDENT: ${{secrets.DISCORD_CLIENT_ID}}
+                  DISCORD_CLIENT_ID: ${{secrets.DISCORD_CLIENT_ID}}
                   DISCORD_GUILD_ID: ${{secrets.DISCORD_GUILD_ID}}
                   TENOR_API_KEY: ${{secrets.TENOR_API_KEY}}
             - name: Install PM2
