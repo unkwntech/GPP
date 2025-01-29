@@ -42,9 +42,11 @@ export default {
                 const data = res.data;
                 const results = data[0].data.pages.search.results;
                 if (data[0].data.pages.search.results.length === 0) {
-                    interaction.reply(
-                        "I didn't find any articles with those search terms."
-                    );
+                    interaction.reply({
+                        content:
+                            "I didn't find any articles with those search terms.",
+                        flags: ["Ephemeral"],
+                    });
                     return;
                 }
                 if (data[0].data.pages.search.results.length === 1) {
@@ -76,9 +78,11 @@ export default {
                     content: "Multiple Articles Found",
                     components: [row],
                     withResponse: true,
+                    flags: ["Ephemeral"],
                 });
 
-                const filter = (i: any) => i.user.id === interaction.user.id;
+                const filter: any = (i: any) =>
+                    i.user.id === interaction.user.id;
 
                 try {
                     const confirmation =
@@ -96,6 +100,7 @@ export default {
                         (r: any) => r.id === confirmation.values[0]
                     );
 
+                    interaction.deleteReply();
                     interaction.editReply({
                         content: `https://wiki.minmatar.org/${result.path}`,
                         components: [],
