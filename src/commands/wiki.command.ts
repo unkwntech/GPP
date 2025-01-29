@@ -78,7 +78,6 @@ export default {
                     content: "Multiple Articles Found",
                     components: [row],
                     withResponse: true,
-                    flags: ["Ephemeral"],
                 });
 
                 const filter: any = (i: any) =>
@@ -100,7 +99,6 @@ export default {
                         (r: any) => r.id === confirmation.values[0]
                     );
 
-                    interaction.deleteReply();
                     interaction.editReply({
                         content: `https://wiki.minmatar.org/${result.path}`,
                         components: [],
